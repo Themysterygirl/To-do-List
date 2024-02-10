@@ -1,54 +1,54 @@
 <template>
   <div class="todo-list">
-    <h1>My To-Do List</h1>
+    <h1 class="heading">My To-Do List</h1>
     <div class="input-group">
       <input type="text" v-model="newTask" @keyup.enter="addTask" placeholder="Add a new task...">
       <button @click="addTask" class="add-button">Add</button>
     </div>
-    <h2>Planned</h2>
+    <h2 class="section-heading">Planned</h2>
     <ul>
       <li v-for="task in plannedTasks" :key="task.id" class="task-item">
         <div class="task-info">
-          <span @click="editTask(task)" :class="{ 'completed': task.completed }">{{ task.title }}</span>
+          <span @click="editTask(task)" :class="{ 'completed': task.completed }" class="task-title">{{ task.title }}</span>
           <span class="created-date">(Created: {{ formatDate(task.created_at) }})</span>
         </div>
         <div class="button-group">
-          <button @click="completeTask(task, 'completed')">Complete</button>
-          <button @click="completeTask(task, 'inProgress')">Start</button>
-          <button @click="deleteTask(task)">Delete</button>
+          <button @click="completeTask(task, 'completed')" class="task-button">Complete</button>
+          <button @click="completeTask(task, 'inProgress')" class="task-button">Start</button>
+          <button @click="deleteTask(task)" class="task-button">Delete</button>
         </div>
       </li>
     </ul>
-    <h2>In Progress</h2>
+    <h2 class="section-heading">In Progress</h2>
     <ul>
       <li v-for="task in inProgressTasks" :key="task.id" class="task-item">
         <div class="task-info">
-          <span @click="editTask(task)" :class="{ 'completed': task.completed }">{{ task.title }}</span>
+          <span @click="editTask(task)" :class="{ 'completed': task.completed }" class="task-title">{{ task.title }}</span>
           <span class="created-date">(Created: {{ formatDate(task.created_at) }})</span>
         </div>
         <div class="button-group">
-          <button @click="completeTask(task, 'completed')">Complete</button>
-          <button @click="deleteTask(task)">Delete</button>
+          <button @click="completeTask(task, 'completed')" class="task-button">Complete</button>
+          <button @click="deleteTask(task)" class="task-button">Delete</button>
         </div>
       </li>
     </ul>
     <div class="task-info">
-      <h2>Completed Tasks</h2>
+      <h2 class="section-heading">Completed Tasks</h2>
       <ul>
         <li v-for="task in completedTasks" :key="task.id" class="task-item">
           <div class="task-info">
-            <span class="completed" @click="editTask(task)">{{ task.title }}</span>
+            <span @click="editTask(task)" class="completed-task">{{ task.title }}</span>
             <span class="created-date">(Created: {{ formatDate(task.created_at) }})</span>
           </div>
           <div class="button-group">
-            <button @click="deleteTask(task)">Delete</button>
+            <button @click="deleteTask(task)" class="completed-task-button">Delete</button>
           </div>
         </li>
       </ul>
       <div class="centered-button-group">
-        <button @click="clearCompletedTasks">Clear Completed Tasks</button>
+        <button @click="clearCompletedTasks" class="clear-button">Clear Completed Tasks</button>
         <div class="spacer"></div>
-        <button @click="clearAllTasks">Clear All Tasks</button>
+        <button @click="clearAllTasks" class="clear-button">Clear All Tasks</button>
       </div>
     </div>
   </div>
@@ -143,66 +143,37 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
 .todo-list {
+  font-family: 'Playfair Display', serif;
   max-width: 600px;
   margin: auto;
   padding: 20px;
+   /* Update font-family for the entire app */
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+.heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
 }
 
-.input-group {
-  display: flex;
-  align-items: center;
+.section-heading {
+  font-size: 20px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: #666;
 }
 
-.input-group input[type="text"] {
-  flex-grow: 1;
-}
-
-.task-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.task-info {
-  flex-grow: 1;
-}
-
-.button-group {
-  display: flex;
-}
-
-.button-group button {
-  margin-left: 5px;
-}
-
-.centered-button-group {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.spacer {
-  width: 10px; /* Adjust spacing */
-}
-
-.add-button {
-  padding: 5px 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
+.task-title {
   cursor: pointer;
+  color: #222;
 }
 
-.completed {
+.completed-task {
   text-decoration: line-through;
-  color: gray;
+  color: #999;
   cursor: pointer;
 }
 
@@ -212,11 +183,69 @@ ul {
   color: #888;
 }
 
-button {
-  padding: 5px 10px;
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-group input[type="text"] {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.button-group {
+  display: flex;
+}
+
+.button-group button {
+  margin-left: 5px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.task-button {
   background-color: #cc3333;
   color: white;
+}
+
+.completed-task-button {
+  background-color: #ddd;
+  color: #333;
+}
+
+.centered-button-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.clear-button {
+  padding: 8px 15px;
+  background-color: #666;
+  color: white;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
+}
+
+.spacer {
+  width: 10px;
 }
 </style>
