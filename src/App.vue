@@ -16,6 +16,14 @@ export default {
 </script>
 
 <style>
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('./components/backg.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Ensure the image covers the entire viewport height */
+}
 #app {
   font-family: Arial, sans-serif;
   text-align: center;
